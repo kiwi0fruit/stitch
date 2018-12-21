@@ -342,9 +342,10 @@ class TestIntegration:
         s._kernel_pairs['python'] = clean_python_kernel
         result = s.stitch(code)
         blocks = result['blocks']
-        expected = '{}_files/unnamed_chunk_0.png'.format(clean_name)
+        expected = ('{}_files/unnamed_chunk_0.png'.format(clean_name),
+                    r'{}_files\unnamed_chunk_0.png'.format(clean_name))
         result = blocks[-1]['c'][0]['c'][2][0]
-        assert result == expected
+        assert result in expected
 
     @pytest.mark.parametrize('fmt', ['png', 'svg', 'pdf'])
     def test_image_no_self_contained_formats(self, clean_python_kernel,
